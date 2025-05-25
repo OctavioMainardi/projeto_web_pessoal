@@ -1,6 +1,4 @@
-// controllers/userController.js
-
-const userService = require('../services/userService');
+const userService = require("../services/userService");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -17,31 +15,41 @@ const getUserById = async (req, res) => {
     if (user) {
       res.status(200).json(user);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: "Usuário não encontrado" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-const createUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const newUser = await userService.createUser(name, email);
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      return res
+        .status(400)
+        .json({ error: "username, email e password são obrigatórios" });
+    }
+    const newUser = await userService.registerUser(username, email, password);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-const updateUser = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const updatedUser = await userService.updateUser(req.params.id, name, email);
-    if (updatedUser) {
-      res.status(200).json(updatedUser);
+    const { usernameOrEmail, password } = req.body;
+    if (!usernameOrEmail || !password) {
+      return res
+        .status(400)
+        .json({ error: "usernameOrEmail e password são obrigatórios" });
+    }
+    const user = await userService.loginUser(usernameOrEmail, password);
+    if (user) {
+      res.status(200).json(user);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(401).json({ error: "Credenciais inválidas" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -54,7 +62,7 @@ const deleteUser = async (req, res) => {
     if (deletedUser) {
       res.status(200).json(deletedUser);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: "Usuário não encontrado" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -64,7 +72,7 @@ const deleteUser = async (req, res) => {
 module.exports = {
   getAllUsers,
   getUserById,
-  createUser,
-  updateUser,
-  deleteUser
+  registerUser,
+  loginUser,
+  deleteUser,
 };

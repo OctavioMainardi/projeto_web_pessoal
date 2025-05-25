@@ -2,23 +2,35 @@
 
 ## Descrição do sistema
 
-Este projeto é uma API RESTful para gerenciamento de tarefas, desenvolvida em Node.js com banco de dados SQL utilizando o Supabase.  
-Permite o cadastro e autenticação de usuários, criação de tarefas, organização por categorias e controle de status e prazos.
+Este projeto é uma API RESTful para gerenciamento de tarefas, desenvolvida em Node.js com banco de dados PostgreSQL hospedado no Supabase.  
+Permite o cadastro e autenticação de usuários, criação de tarefas, e controle de status.
 
 ## Estrutura de pastas e arquivos
 
 ```text
-project-root/
-├── src/
-│   ├── controllers/
-│   ├── routes/
-│   ├── services/
-│   ├── supabaseClient.js
-│   └── app.js
+projeto_web_pessoal/
+├── controllers/
+│   ├── taskController.js
+│   └── userController.js
+├── models/
+│   ├── Task.js
+│   └── User.js
+├── routes/
+│   ├── frontRoutes.js
+│   ├── taskRoutes.js
+│   └── userRoutes.js
+├── scripts/
+│   ├── init.sql
+│   └── migration.js
+├── services/
+│   ├── taskService.js
+│   └── userService.js
+├── config/
+│   └── db.js
 ├── .env
-├── .gitignore
 ├── package.json
-└── README.md
+├── server.js
+└── readme.md
 ```
 
 ## Como executar o projeto localmente
@@ -26,8 +38,8 @@ project-root/
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/task-manager-api.git
-cd task-manager-api
+git clone <url-do-seu-repositorio>
+cd projeto_web_pessoal
 ```
 
 ### 2. Instale as dependências
@@ -41,21 +53,23 @@ npm install
 Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
 
 ```env
-SUPABASE_URL=https://seu-projeto.supabase.co
-SUPABASE_ANON_KEY=sua-chave-anon
-PORT=3000
+DB_HOST="<host-do-supabase>"
+DB_USER="<usuario>"
+DB_PASSWORD="<senha>"
+DB_DATABASE="<nome-do-banco>"
+DB_PORT="<porta>"
 ```
 
-### 4. Execute o projeto
+### 4. Execute as migrações do banco de dados
 
 ```bash
-npm run dev
+node scripts/migration.js
 ```
 
-Ou, se preferir:
+### 5. Inicie o servidor
 
 ```bash
-node src/app.js
+node server.js
 ```
 
 A API estará disponível em:
@@ -63,3 +77,24 @@ A API estará disponível em:
 ```text
 http://localhost:3000
 ```
+
+## Endpoints principais
+
+- **Usuários**
+
+  - `POST /api/users/register` — Registrar novo usuário
+  - `POST /api/users/login` — Login de usuário
+  - `GET /api/users` — Listar todos os usuários
+  - `GET /api/users/:id` — Buscar usuário por ID
+  - `DELETE /api/users/:id` — Remover usuário
+
+- **Tarefas**
+  - `POST /api/tasks` — Criar nova tarefa
+  - `DELETE /api/tasks/:taskId` — Remover tarefa
+  - `PATCH /api/tasks/:taskId/complete` — Marcar tarefa como concluída
+  - `GET /api/tasks/user/:userId` — Listar tarefas de um usuário
+
+## Observações
+
+- O projeto utiliza Express.js para a API e conexão com PostgreSQL via Supabase.
+- As migrações de banco de dados estão em `scripts/init.sql` e podem ser executadas manualmente ou via `migration.js`.

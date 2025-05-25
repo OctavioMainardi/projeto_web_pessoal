@@ -78,9 +78,47 @@ Table tasks {
 ```
 
 ### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+O sistema implementa os seguintes Models:
+
+User
+Representa um usuário do sistema.,
+Campos:
+id: UUID, identificador único do usuário.,
+username: Nome de usuário, string única e obrigatória.,
+email: E-mail do usuário, string única e obrigatória.,
+password: Senha do usuário, string obrigatória.,
+created_at: Data de criação do usuário.,
+,
+,
+
+Task
+Representa uma tarefa criada por um usuário.,
+Campos:
+id: UUID, identificador único da tarefa.,
+title: Título da tarefa, string obrigatória.,
+description: Descrição da tarefa, texto opcional.,
+completed: Status de conclusão, booleano (padrão: false).,
+userId: UUID do usuário ao qual a tarefa pertence (chave estrangeira).,
+created_at: Data de criação da tarefa.
 
 ### 3.2. Arquitetura (Semana 5)
+
+O sistema segue o padrão arquitetural MVC (Model-View-Controller) com separação clara de responsabilidades:
+
+Model: Representa os dados e regras de negócio. Exemplo: User.js e Task.js em /models.,
+Service: Camada intermediária que implementa a lógica de negócio e faz a ponte entre os controllers e o banco de dados. Exemplo: userService.js e taskService.js em /services.,
+Controller: Recebe as requisições HTTP, chama os serviços necessários e retorna as respostas. Exemplo: userController.js e taskController.js em /controllers.,
+Routes: Define os endpoints da API e encaminha as requisições para os controllers. Exemplo: userRoutes.js, taskRoutes.js, frontRoutes.js em /routes.,
+View: Interface HTML estática servida por Express, localizada em /views.,
+
+O fluxo de dados ocorre da seguinte forma:
+
+O usuário faz uma requisição HTTP para um endpoint definido em /routes.,
+O controller correspondente processa a requisição e chama o service adequado.,
+O service executa a lógica de negócio e interage com o banco de dados via /config/db.js.,
+O resultado é retornado ao controller, que envia a resposta ao usuário.
+
+(*atualizar dps*)
 
 *Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
 
@@ -106,7 +144,18 @@ Table tasks {
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+http://localhost:3000/documentation/
+
+POST /api/users/register — Registrar novo usuário,
+POST /api/users/login — Login de usuário,
+GET /api/users — Listar todos os usuários,
+GET /api/users/:id — Buscar usuário por ID,
+DELETE /api/users/:id — Remover usuário,
+
+POST /api/tasks — Criar nova tarefa,
+DELETE /api/tasks/:taskId — Remover tarefa,
+PATCH /api/tasks/:taskId/complete — Marcar tarefa como concluída,
+GET /api/tasks/user/:userId — Listar tarefas de um usuário
 
 ### 3.7 Interface e Navegação (Semana 07)
 

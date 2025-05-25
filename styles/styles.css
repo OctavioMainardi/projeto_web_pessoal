@@ -1,0 +1,24 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #343434;
+  color: #f9f9f9;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  color: #6eabed;
+}
+
+h1 {
+  color: #6eabed;
+  font-weight: bold;
+  font-size: 36px;
+}
