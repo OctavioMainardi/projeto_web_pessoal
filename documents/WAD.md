@@ -159,9 +159,16 @@ GET /api/tasks/user/:userId — Listar tarefas de um usuário
 
 ### 3.7 Interface e Navegação (Semana 07)
 
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+Utilizei uma interface moderna do CSS, com uma pasta de estilos que cuida de varias classes e adiciona coisas com familia de fonte (font-family), curvas, bordas, e define o resto do estilo.
 
----
+<img src="https://media.discordapp.net/attachments/1137901120593870883/1380721320802648144/Screenshot_2025-06-06_at_10.33.29_PM.png?ex=6844e86f&is=684396ef&hm=b7b9d391200d38688d7dc5e1636d1101e0f71efdd45700d4c09b7ba7cf5d8f48&=&format=webp&quality=lossless&width=1450&height=820" border="0" width="40%" height="40%">
+
+
+<img src="https://media.discordapp.net/attachments/1137901120593870883/1380721423344996352/Screenshot_2025-06-06_at_10.33.53_PM.png?ex=6844e887&is=68439707&hm=47aee3575ca14bec987ca7a9cb47630815947b781857432fbb2e03a665a5981f&=&format=webp&quality=lossless&width=1468&height=820" border="0" width="40%" height="40%">
+
+
+<img src="https://media.discordapp.net/attachments/1137901120593870883/1380721836471484468/Screenshot_2025-06-06_at_10.35.33_PM.png?ex=6844e8ea&is=6843976a&hm=2411ff68cf0318d653aa4670ab530d7b59e203d5e9e0f076fc25fdf6a18d8e7c&=&format=webp&quality=lossless&width=1448&height=819" border="0" width="40%" height="40%">
+
 
 ## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
 
