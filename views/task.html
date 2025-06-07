@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerenciador de Tarefas</title>
+  <link rel="stylesheet" href="/styles/styles.css" />
+</head>
+<body>
+  <div class="main-layout">
+    <aside class="sidebar">
+      <h2>Minhas Tasks</h2>
+      <ul id="sidebarTasks" class="sidebar-tasks"></ul>
+      <button id="logoutBtn" class="logout-btn">Desconectar</button>
+    </aside>
+    <div class="flex-column main-content" style="width:100%;">
+      <h1 class="centered-title">Gerenciador de Tarefas</h1>
+      <div class="task-input-row">
+        <input id="taskTitle" placeholder="Título da tarefa" />
+        <button id="addTaskBtn">Adicionar</button>
+      </div>
+      <textarea id="taskDesc" placeholder="Descrição"></textarea>
+      <ul id="taskList" class="task-list"></ul>
+    </div>
+  </div>
+  <script>
+    let taskIdCounter = 1;
+    const taskList = document.getElementById('taskList');
+    const taskTitle = document.getElementById('taskTitle');
+    const taskDesc = document.getElementById('taskDesc');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const sidebarTasks = document.getElementById('sidebarTasks');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    function addTaskToSidebar({ id, title }) {
+      const li = document.createElement('li');
+      li.textContent = title;
+      li.title = title;
+      li.className = 'sidebar-task-item';
+      sidebarTasks.appendChild(li);
+    }
+
+    function createTask({ id, title, description, completed }) {
+      const li = document.createElement('li');
+      li.className = 'task-item';
+
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'task-actions';
+
+      const completeBtn = document.createElement('button');
+      completeBtn.textContent = completed ? 'Desfazer' : 'Concluir';
+      completeBtn.onclick = () => {
+        completed = !completed;
+        titleSpan.classList.toggle('completed');
+        completeBtn.textContent = completed ? 'Desfazer' : 'Concluir';
+      };
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Editar';
+      editBtn.onclick = () => {
+        const editTitle = document.createElement('input');
+        editTitle.value = titleSpan.textContent;
+        editTitle.style.width = "80%";
+        const editDesc = document.createElement('textarea');
+        editDesc.value = descDiv.textContent;
+        editDesc.style.width = "100%";
+        editDesc.style.minHeight = "80px";
+
+        const saveBtn = document.createElement('button');
+        saveBtn.textContent = 'Salvar';
+        saveBtn.onclick = () => {
+          titleSpan.textContent = editTitle.value;
+          descDiv.textContent = editDesc.value;
+          infoDiv.replaceChild(titleSpan, editTitle);
+          infoDiv.replaceChild(descDiv, editDesc);
+          actionsDiv.replaceChild(editBtn, saveBtn);
+
+          // Atualiza na sidebar
+          const sidebarItems = document.querySelectorAll('.sidebar-task-item');
+          sidebarItems.forEach(item => {
+            if (item.textContent === title) {
+              item.textContent = editTitle.value;
+              item.title = editTitle.value;
+            }
+          });
+        };
+
+        infoDiv.replaceChild(editTitle, titleSpan);
+        infoDiv.replaceChild(editDesc, descDiv);
+        actionsDiv.replaceChild(saveBtn, editBtn);
+        editTitle.focus();
+      };
+
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remover';
+      removeBtn.onclick = () => {
+        li.remove();
+        // Remove da sidebar
+        const sidebarItems = document.querySelectorAll('.sidebar-task-item');
+        sidebarItems.forEach(item => {
+          if (item.textContent === titleSpan.textContent) {
+            item.remove();
+          }
+        });
+      };
+
+      actionsDiv.appendChild(completeBtn);
+      actionsDiv.appendChild(editBtn);
+      actionsDiv.appendChild(removeBtn);
+
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'task-info';
+
+      const titleSpan = document.createElement('span');
+      titleSpan.textContent = title;
+      if (completed) titleSpan.classList.add('completed');
+
+      const descDiv = document.createElement('div');
+      descDiv.className = 'task-desc';
+      descDiv.textContent = description;
+
+      infoDiv.appendChild(titleSpan);
+      infoDiv.appendChild(descDiv);
+
+      // Adicione os botões ANTES do conteúdo
+      li.appendChild(actionsDiv);
+      li.appendChild(infoDiv);
+
+      return li;
+    }
+
+    addTaskBtn.addEventListener('click', () => {
+      const title = taskTitle.value.trim();
+      const description = taskDesc.value.trim();
+      if (title) {
+        const task = {
+          id: taskIdCounter++,
+          title,
+          description,
+          completed: false
+        };
+        const taskEl = createTask(task);
+        taskList.appendChild(taskEl);
+        addTaskToSidebar(task);
+        taskTitle.value = '';
+        taskDesc.value = '';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

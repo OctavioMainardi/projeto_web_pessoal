@@ -7,10 +7,28 @@
     <link rel="stylesheet" href="/styles/styles.css" />
   </head>
   <body>
-    <h1>TODO App</h1>
-    <h2>Bem-vindo ao TODO App!</h2>
-    <h2>Octavio Mainardi</h2>
-
-    <a href="/documentation">Documentation</a>
-  </body>
+<div class="flex-column">
+  <h1>Login Insano</h1>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" placeholder="Seu email" type="email">
+  </div>
+  <div class="form-group">
+    <label for="password">Senha</label>
+    <input id="password" placeholder="Sua senha" type="password">
+  </div>
+  <button type="submit" id="loginBtn">Bora</button>
+</div>
+<script>
+  document.getElementById('loginBtn').addEventListener('click', function() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    if (email && password) {
+      window.location.href = 'task.html';
+    } else {
+      alert('Por favor, preencha email e senha.');
+    }
+  });
+</script>
+</body>
 </html>
