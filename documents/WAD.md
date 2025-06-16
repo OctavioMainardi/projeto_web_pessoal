@@ -174,19 +174,16 @@ Utilizei uma interface moderna do CSS, com uma pasta de estilos que cuida de var
 
 ### 4.1 Demonstração do Sistema Web (Semana 8)
 
-*VIDEO: Insira o link do vídeo demonstrativo nesta seção*
-*Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+https://youtu.be/VZJbnHUssog video de no max 5m enviado no YT
+
+O projeto consiste em uma aplicação web desenvolvida com Node.js, estruturada no padrão MVC (Model-View-Controller). O sistema oferece gerenciamento de tarefas (to-do list) com autenticação de usuários, permitindo criar, remover e marcar tarefas como concluídas. O backend utiliza Express para a criação de uma API RESTful, com rotas para cadastro, login, listagem de usuários e operações CRUD de tarefas. O banco de dados utilizado é PostgreSQL, com scripts de migração para criação das tabelas. A interface web é responsiva e moderna, com estilos personalizados em CSS. O projeto é modular, organizado em camadas de models, services, controllers e views, facilitando a manutenção e futuras expansões.
 
 ### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
+Aprendi que para obter resultado na programação, é necessario utilizar o minimo de IA possivel, programar é questão de pratica e tentativa. Alem disso uma arquitetura básica de banco de dados e tabelas com SQL deixou de ser algo intimidador para mim.
 
-
+Com certeza em algum outro site que eu fizer, vou utilizar essa arquitetura, assim como meus amigos fizeram em https://owfantasy-latam.com/
 
 ## <a name="c5"></a>5. Referências
 
-_Incluir as principais referências de seu projeto, para que o leitor possa consultar caso ele se interessar em aprofundar._<br>
-
----
----
+<img src="https://media.discordapp.net/attachments/901188259839897630/1383938202808614943/steam-happy-but-high-quality-v0-22ku6htw4u0c1.png?ex=68509c63&is=684f4ae3&hm=7166c604af8780a65cec08cefde8e0988da5291ab79d917ef53fd1191909fb1b&=&format=webp&quality=lossless&width=900&height=950" alt="Projeto Banner" width="40%" height="40%" align="center">

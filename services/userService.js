@@ -1,38 +1,25 @@
 const db = require("../config/db");
 const User = require("../models/User");
+const { getAllUsersRepo, registerUserRepo, loginUserRepo, deleteUserRepo, getUserByIdRepo } = require("../repository/UserRepository.js")
+
 
 const getAllUsers = async () => {
-  try {
-    const result = await db.query("SELECT id, username, email FROM users");
-    return result.rows.map((row) => new User({ ...row, password: undefined }));
-  } catch (error) {
-    throw new Error("Erro ao obter usuários: " + error.message);
-  }
+  return getAllUsersRepo()
 };
 
 const getUserById = async (id) => {
-  try {
-    const result = await db.query(
-      "SELECT id, username, email FROM users WHERE id = $1",
-      [id]
-    );
-    if (!result.rows[0]) return null;
-    return new User({ ...result.rows[0], password: undefined });
-  } catch (error) {
-    throw new Error("Erro ao obter usuário: " + error.message);
-  }
+  return getUserByIdRepo(id)
 };
 
 const registerUser = async (username, email, password) => {
-  try {
-    const result = await db.query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email",
-      [username, email, password]
-    );
-    return new User({ ...result.rows[0], password });
-  } catch (error) {
-    throw new Error("Erro ao registrar usuário: " + error.message);
-  }
+  const user = new User({ username, email, password })
+  if(user.validateUsername() == false)
+    throw new Error("Erro ao registrar usuário. Nome inválido (paia)")
+  if(user.validatePassword() == false)
+    throw new Error("Erro ao registrar usuário. Senha inválida (muito paia)")
+  if(user.validateEmail() == false)
+    throw new Error("Erro ao registrar usuário. Email inválido (E-meio paia)")
+  return registerUserRepo(username, email, password)
 };
 
 const loginUser = async (usernameOrEmail, password) => {

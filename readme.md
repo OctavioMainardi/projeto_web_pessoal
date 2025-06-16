@@ -63,13 +63,13 @@ DB_PORT="<porta>"
 ### 4. Execute as migrações do banco de dados
 
 ```bash
-node scripts/migration.js
+npm run migration
 ```
 
 ### 5. Inicie o servidor
 
 ```bash
-node server.js
+npm start
 ```
 
 A API estará disponível em:
@@ -110,4 +110,4 @@ Controller (Controlador): Atua como intermediário entre o Model e a View, proce
 
 A adoção do MVC traz benefícios como a separação de conceitos, facilitando a escalabilidade e a manutenção do sistema. No momento, estamos focados no backend, mas a estrutura já está preparada para a futura integração com o frontend. A parte visual do projeto já está preparada junto com seu fluxo. Os mockups, como são chamados os protótipos de alta fidelidade, já estão prontos para serem replicados na aplicação.
 
-As principais dificuldades enfrentadas pelo grupo na parte do código, foi a resolução de bugs no servidor junto às tabelas, no qual não estavam atendendo os comandos requisitados e não estavam em sincronia umas com as outras. Além disso, a manutenção de pastas foi um grande desafio, visto que os arquivos estavam em commits diferentes.
+As principais dificuldades enfrentadas na parte do código, foi a resolução de bugs no servidor junto às tabelas, no qual não estavam atendendo os comandos requisitados e não estavam em sincronia umas com as outras. Além disso, a manutenção de pastas foi um grande desafio, visto que os arquivos estavam em commits diferentes.

@@ -1,72 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TODO App</title>
-    <link rel="stylesheet" href="/styles/styles.css" />
-  </head>
-  <body>
-    <div class="flex-column">
-      <h1>Register Insano</h1>
 
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input id="username" placeholder="Seu username" type="text" />
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" placeholder="Seu email" type="email" />
-      </div>
-      <div class="form-group">
-        <label for="password">Senha</label>
-        <input id="password" placeholder="Sua senha" type="password" />
-      </div>
-      <button type="submit" id="registerBtn">Bora</button>
-      <p>Ja tem conta? <a href="/login">Login</a></p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TODO App</title>
+  <link rel="stylesheet" href="/styles/styles.css" />
+</head>
+
+<body>
+  <div class="flex-column">
+    <h1>Register Insano</h1>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input id="username" placeholder="Seu username" type="text" />
     </div>
-    <script>
-      document
-        .getElementById("registerBtn")
-        .addEventListener("click", function () {
-          const username = document.getElementById("username").value.trim();
-          const email = document.getElementById("email").value.trim();
-          const password = document.getElementById("password").value.trim();
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" placeholder="Seu email" type="email" />
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input id="password" placeholder="Sua senha" type="password" />
+    </div>
+    <button type="submit" id="registerBtn">Bora</button>
+    <p>Ja tem conta? <a href="/login">Login</a></p>
+  </div>
+  <script>
+    document
+      .getElementById("registerBtn")
+      .addEventListener("click", function () {
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-          if (email && password && username) {
-            fetch("/api/users/register", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ username, email, password }),
+        if (email && password && username) {
+          fetch("/api/users/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, email, password }),
+          })
+            .then(async (response) => {
+              if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                const errorMsg = errorData.error || response.statusText;
+                throw new Error(`${errorMsg}`);
+              }
+              return response.json();
             })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Erro ao registrar usuário");
-                }
-                return response.json();
-              })
-              .then((data) => {
-                // Salva o id do usuário retornado pela API
-                if (data && data.id) {
-                  localStorage.setItem("id", data.id);
-                } else {
-                  alert("Erro: id do usuário não retornado pela API.");
-                  return;
-                }
-                localStorage.setItem("email", email);
-                localStorage.setItem("username", username);
-                alert("Usuário registrado com sucesso!");
-                window.location.href = "/tasks";
-              })
-              .catch((error) => {
-                alert(error.message);
-              });
-          } else {
-            alert("Por favor, preencha email, username e senha.");
-          }
-        });
-    </script>
-  </body>
+            .then((data) => {
+              if (data && data.id) {
+                localStorage.setItem("id", data.id);
+              } else {
+                alert("Erro: id do usuário não retornado pela API.");
+                return;
+              }
+              localStorage.setItem("email", email);
+              localStorage.setItem("username", username);
+              alert("Usuário registrado com sucesso!");
+              window.location.href = "/tasks";
+            })
+            .catch((error) => {
+              alert(error.message);
+              console.log(error);
+            });
+        } else {
+          alert("Por favor, preencha email, username e senha.");
+        }
+      });
+  </script>
+</body>
+
 </html>

@@ -3,8 +3,11 @@ const path = require("path");
 const db = require("../config/db");
 
 const migrationsDir = __dirname;
-const files = fs.readdirSync(migrationsDir).sort();
+const files = fs.readdirSync(migrationsDir)
+  .filter(f => f.endsWith('.sql'))
+  .sort();
 
+  
 (async () => {
   try {
     for (const file of files) {
